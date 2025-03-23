@@ -9,19 +9,22 @@ int main(int argc, char **argv) {
   ros::NodeHandle n;
 
   ros::Publisher pub =
-      n.advertise<excavator::sensor::PublishInfo>("/Sorbai", 1000);
+      n.advertise<Excavator::data::PublishInfo>("/Excavator_SY60C", 1000);
 
   ros::Rate loop_rate(10);
   
-  excavator::sensor::PublishInfo proto_msg_info;
-  proto_msg_info.set_name("sorbai");
+  Excavator::data::PublishInfo proto_msg_info;
+  proto_msg_info.set_topic_name("Excavator_SY60C");
   proto_msg_info.set_message_type("test_message");
-  proto_msg_info.set_publish_msg("sorbai is a bilibili up");
-
+  proto_msg_info.set_queue_size(10);
+  proto_msg_info.set_is_latched(false);
+  proto_msg_info.set_md5_checksum("proto md5");
+  // proto_msg_info.set_publish_msg("Excavator SY60C is able to communicate with others");
+  ROS_INFO("Debug Excavtor sensor");
   int count = 0;
   while (ros::ok()) {
     pub.publish(proto_msg_info);
-    std::cerr << "DebugMsg: " << proto_msg_info.DebugString() << std::endl;
+    // std::cerr << "DebugMsg: " << proto_msg_info.DebugString() << std::endl;
     ros::spinOnce();
 
     loop_rate.sleep();

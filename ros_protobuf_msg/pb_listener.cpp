@@ -44,10 +44,10 @@
 //   std::cout << "def: " << def << std::endl;
 // }
 void chatterCallback(
-    const ros::MessageEvent<excavator::sensor::PublishInfo> &msg) {
+    const ros::MessageEvent<Excavator::data::PublishInfo> &msg) {
   std::cerr << "I heard: " << msg.getMessage()->DebugString() << std::endl;
   std::string def =
-      ros::message_traits::Definition<excavator::sensor::PublishInfo>::value();
+      ros::message_traits::Definition<Excavator::data::PublishInfo>::value();
   std::cout << "def: " << def << std::endl;
 }
 // %EndTag(CALLBACK)%
@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
    * throw away the oldest ones.
    */
   // %Tag(SUBSCRIBER)%
-  ros::Subscriber sub = n.subscribe("/Sorbai", 1000, chatterCallback);
+  ros::Subscriber sub = n.subscribe("/Excavator", 1000, chatterCallback);
   // %EndTag(SUBSCRIBER)%
 
   /**
