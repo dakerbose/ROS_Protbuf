@@ -58,7 +58,7 @@ struct DataType<T, typename std::enable_if<std::is_base_of<
 template <typename T>
 struct MD5Sum<T, typename std::enable_if<std::is_base_of<
                      ::google::protobuf::Message, T>::value>::type> {
-  static const char* value() { return "proto_md5"; }
+  static const char* value() { return "d41d8cd98f00b204e9800998ecf8427e"; }
   static const char* value(const T&) { return value(); }
 };
 
