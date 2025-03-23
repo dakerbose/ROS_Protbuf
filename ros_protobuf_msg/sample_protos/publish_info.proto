@@ -2,97 +2,12 @@ syntax = "proto3";
 
 package Excavator.data;
 
-import "google/protobuf/timestamp.proto";
 
 // 增强版发布信息
 message PublishInfo {
   string topic_name = 1;         // 发布主题名称
-  string message_type = 2;       // 消息类型全称（如："Excavator.data.Lidar"）
+  string message_type = 2;       // 消息类型全称
   uint32 queue_size = 3;         // 发布队列长度
   bool is_latched = 4;           // 是否锁定最新消息
   string md5_checksum = 5;       // 消息结构MD5校验码
-}
-
-// 通用传感器元数据
-message SensorMetadata {
-  string frame_id = 1;         // 坐标系名称（如："base_link"）
-  google.protobuf.Timestamp timestamp = 2; // 精确时间戳
-  string sensor_id = 3;       // 设备唯一标识符
-  float temperature = 4;       // 传感器温度(°C)
-  uint32 status_code = 5;      // 设备状态码（0=正常）
-}
-
-// 三维空间点定义
-message PointXYZI {
-  float x = 1;    // X轴坐标(m)
-  float y = 2;    // Y轴坐标(m)
-  float z = 3;    // Z轴坐标(m)
-  float intensity = 4; // 反射强度 [0-1]
-}
-
-// 雷达数据协议
-message Lidar {
-  SensorMetadata metadata = 1;
-  
-  // 扫描参数
-  float scan_frequency = 2;   // 扫描频率(Hz)
-  float vertical_fov = 3;      // 垂直视场角(度)
-  float horizontal_fov = 4;    // 水平视场角(度)
-  float min_range = 5;         // 最小测距(m)
-  float max_range = 6;         // 最大测距(m)
-  
-  // 点云数据
-  repeated PointXYZI points = 7;  // 点云集合
-  uint32 point_step = 8;          // 点数据步长(bytes)
-  
-  // 数据编码格式
-  enum DataFormat {
-    RAW = 0;
-    COMPRESSED_PCL = 1;
-    CUSTOM_BINARY = 2;
-  }
-  DataFormat data_format = 9;
-}
-
-// 图像数据描述
-message ImageData {
-  bytes raw_data = 1;          // 原始像素数据
-  uint32 width = 2;            // 图像宽度(pixels)
-  uint32 height = 3;           // 图像高度(pixels)
-  
-  // 像素格式 (OpenCV兼容)
-  enum PixelFormat {
-    MONO8 = 0;
-    RGB8 = 1;
-    BGR8 = 2;
-    RGBA8 = 3;
-    YUV420 = 4;
-  }
-  PixelFormat encoding = 4;
-  
-  uint32 stride = 5;          // 行步长(bytes)
-}
-
-// 相机数据协议
-message Camera {
-  SensorMetadata metadata = 1;
-  
-  // 采集参数
-  float frame_rate = 2;       // 帧率(FPS)
-  float exposure_time = 3;     // 曝光时间(ms)
-  float gain = 4;             // 增益值 [0-1]
-  
-  // 镜头参数
-  float focal_length = 5;      // 焦距(mm)
-  float f_number = 6;          // 光圈系数
-  
-  // 图像数据
-  oneof image_payload {
-    ImageData raw_image = 7;    // 原始图像数据
-    string jpeg_encoded = 8;    // JPEG压缩数据(Base64)
-  }
-  
-  // 标定参数
-  repeated float intrinsic = 9;   // 内参矩阵[3x3]
-  repeated float distortion = 10; // 畸变系数[k1, k2, p1, p2, k3]
 }
