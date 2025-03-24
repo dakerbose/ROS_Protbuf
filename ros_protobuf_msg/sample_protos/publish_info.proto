@@ -20,36 +20,15 @@ message SensorMetadata {
   uint32 status_code = 5;      // 设备状态码（0=正常）
 }
 
-// 三维空间点定义
-message PointXYZI {
-  float x = 1;    // X轴坐标(m)
-  float y = 2;    // Y轴坐标(m)
-  float z = 3;    // Z轴坐标(m)
-  float intensity = 4; // 反射强度 [0-1]
+message Point {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+    float intensity = 4;
 }
 
-// 雷达数据协议
-message Lidar {
-  SensorMetadata metadata = 1;
-  
-  // 扫描参数
-  float scan_frequency = 2;   // 扫描频率(Hz)
-  float vertical_fov = 3;      // 垂直视场角(度)
-  float horizontal_fov = 4;    // 水平视场角(度)
-  float min_range = 5;         // 最小测距(m)
-  float max_range = 6;         // 最大测距(m)
-  
-  // 点云数据
-  repeated PointXYZI points = 7;  // 点云集合
-  uint32 point_step = 8;          // 点数据步长(bytes)
-  
-  // 数据编码格式
-  enum DataFormat {
-    RAW = 0;
-    COMPRESSED_PCL = 1;
-    CUSTOM_BINARY = 2;
-  }
-  DataFormat data_format = 9;
+message PointCloud {
+    repeated Point points = 1;
 }
 
 // 图像数据描述

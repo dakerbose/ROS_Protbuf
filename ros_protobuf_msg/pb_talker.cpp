@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
   ros::Publisher pub =
       n.advertise<Excavator::data::PublishInfo>("/Excavator_SY60C", 1000);
   ros::Publisher cloud_pub = 
-      n.advertise<sensor_msgs::PointCloud2>("livox_pointcloud", 1);
+      n.advertise<Excavator::data::PointCloud>("/livox_pointcloud", 1);
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
@@ -40,12 +40,21 @@ int main(int argc, char **argv) {
   proto_msg_info.add_vector_test(6.75);
   proto_msg_info.add_vector_test(7.5);
   ROS_INFO("Debug Excavtor sensor");
+  Excavator::data::PointCloud proto_point_cloud;
+  // Fill the Protobuf PointCloud message with points from PCL cloud
+  for (const auto& point : cloud->points) {
+    Excavator::data::Point* proto_point = proto_point_cloud.add_points();
+    proto_point->set_x(point.x);
+    proto_point->set_y(point.y);
+    proto_point->set_z(point.z);
+    proto_point->set_intensity(point.intensity);
+  }
   int count = 0;
   while (ros::ok()) {
     pub.publish(proto_msg_info);
     std::cerr << "DebugMsg: " << proto_msg_info.DebugString() << std::endl;
     cloud_msg.header.stamp = ros::Time::now();
-    cloud_pub.publish(cloud_msg);
+    cloud_pub.publish(proto_point_cloud);
     ros::spinOnce();
 
     loop_rate.sleep();

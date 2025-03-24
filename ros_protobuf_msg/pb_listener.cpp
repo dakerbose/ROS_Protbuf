@@ -50,6 +50,27 @@ void chatterCallback(
       ros::message_traits::Definition<Excavator::data::PublishInfo>::value();
   std::cout << "def: " << def << std::endl;
 }
+
+void chatterCallbackLidar(const ros::MessageEvent<Excavator::data::PointCloud> &msg) {
+  const Excavator::data::PointCloud* pointCloudMsg = msg.getMessage().get();
+
+  // 打印消息的定义
+  std::string def = ros::message_traits::Definition<Excavator::data::PointCloud>::value();
+  std::cerr << "Message Definition: " << def << std::endl;
+
+  // 打印前几个点的信息
+  //std::cerr << "I heard: " << pointCloudMsg->points_size() << " points." << std::endl;
+
+  const int num_points_to_print = 5;  // 设置要打印的点的数量
+  for (int i = 0; i < 5; ++i) {
+      const Excavator::data::Point& point = pointCloudMsg->points(i);
+      std::cerr << "Point " << i << ": (" 
+                << point.x() << ", " 
+                << point.y() << ", " 
+                << point.z() << ", "
+                << point.intensity() << ")" << std::endl;
+  }
+}
 // %EndTag(CALLBACK)%
 
 int main(int argc, char **argv) {
@@ -78,7 +99,8 @@ int main(int argc, char **argv) {
    * throw away the oldest ones.
    */
   // %Tag(SUBSCRIBER)%
-  ros::Subscriber sub = n.subscribe("/Excavator_SY60C", 1000, chatterCallback);
+  // ros::Subscriber sub1 = n.subscribe("/Excavator_SY60C", 10, chatterCallback);
+  ros::Subscriber sub2 = n.subscribe("/livox_pointcloud", 10, chatterCallbackLidar);
   // %EndTag(SUBSCRIBER)%
 
   /**
