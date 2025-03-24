@@ -2,20 +2,19 @@ syntax = "proto3";
 
 package Excavator.data;
 
-
 // 增强版发布信息
 message PublishInfo {
   string topic_name = 1;         // 发布主题名称
   string message_type = 2;       // 消息类型全称
   uint32 queue_size = 3;         // 发布队列长度
   bool is_latched = 4;           // 是否锁定最新消息
-  string md5_checksum = 5;       // 消息结构MD5校验码
+  repeated double vector_test = 5; 
 }
 
 // 通用传感器元数据
 message SensorMetadata {
   string frame_id = 1;         // 坐标系名称（如："base_link"）
-  google.protobuf.Timestamp timestamp = 2; // 精确时间戳
+  // google.protobuf.Timestamp timestamp = 2; // 精确时间戳
   string sensor_id = 3;       // 设备唯一标识符
   float temperature = 4;       // 传感器温度(°C)
   uint32 status_code = 5;      // 设备状态码（0=正常）

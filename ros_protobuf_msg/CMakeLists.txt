@@ -10,6 +10,9 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   roslib)
 
+find_package(PCL 1.10 REQUIRED)
+find_package(sensor_msgs REQUIRED)
+
 catkin_package()
 # catkin_package(
 #   INCLUDE_DIRS include
@@ -29,7 +32,7 @@ add_subdirectory(sample_protos)
 # add_subdirectory(roscpp)
 
 include_directories(${roscpp_INCLUDE_DIRS})
-
+include_directories(${PCL_INCLUDE_DIRS} )
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
@@ -42,6 +45,7 @@ add_dependencies(pb_talker copy_traits_files copy_serialization_files)
 
 target_link_libraries(pb_talker 
 ${roscpp_LIBRARIES} 
+${PCL_LIBRARIES}
 pb_proto
 roscpp_proto_serialization
 )
