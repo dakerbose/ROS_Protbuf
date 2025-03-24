@@ -1,0 +1,8 @@
+/work/test/build/CMakeFiles/rebuild_cache.dir
+/work/test/build/CMakeFiles/edit_cache.dir
+/work/test/build/CMakeFiles/test_proto.dir
+/work/test/build/CMakeFiles/test_sfinae.dir
+/work/test/build/CMakeFiles/test_temple.dir
+/work/test/build/proto/CMakeFiles/edit_cache.dir
+/work/test/build/proto/CMakeFiles/rebuild_cache.dir
+/work/test/build/proto/CMakeFiles/proto_test.dir

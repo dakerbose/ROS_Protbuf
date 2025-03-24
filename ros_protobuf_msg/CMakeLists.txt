@@ -54,6 +54,7 @@ roscpp_proto_serialization
 add_executable(pb_listener pb_listener.cpp)
 target_link_libraries(pb_listener 
 ${roscpp_LIBRARIES} 
+${PCL_LIBRARIES}
 pb_proto
 roscpp_proto_serialization
 )

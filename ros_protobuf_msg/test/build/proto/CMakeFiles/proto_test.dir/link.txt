@@ -1,0 +1,2 @@
+/usr/bin/ar qc libproto_test.a  CMakeFiles/proto_test.dir/superbai.pb.cc.o
+/usr/bin/ranlib libproto_test.a
