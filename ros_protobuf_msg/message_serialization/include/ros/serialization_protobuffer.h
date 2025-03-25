@@ -54,7 +54,7 @@ struct Serializer<T, typename std::enable_if<std::is_base_of<
     // if (len > 0) {
     //   memcpy(stream.advance((uint32_t)len), pb_str.data(), len);
     // }
-    std::cout << "pb_str" << std::endl;
+    // std::cout << "pb_str" << std::endl;
     stream.next(pb_str);
   }
 

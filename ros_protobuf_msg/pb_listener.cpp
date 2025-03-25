@@ -1,6 +1,6 @@
 #include <ros/protobuffer_traits.h>
 #include <ros/serialization_protobuffer.h>
-
+#include <chrono>
 #include "ros/ros.h"
 #include <pcl/io/pcd_io.h> 
 #include "publish_info.pb.h"
@@ -8,17 +8,25 @@
 #include <pcl/point_types.h>
 static bool save_trigger = true;
 
-void chatterCallback(
-    const ros::MessageEvent<Excavator::data::PublishInfo> &msg) {
-  std::cerr << "I heard: " << msg.getMessage()->DebugString() << std::endl;
-  std::string def =
-      ros::message_traits::Definition<Excavator::data::PublishInfo>::value();
-  std::cout << "def: " << def << std::endl;
-}
+// void chatterCallback(
+//     const ros::MessageEvent<Excavator::data::PublishInfo> &msg) {
+//   std::cerr << "I heard: " << msg.getMessage()->DebugString() << std::endl;
+//   std::string def =
+//       ros::message_traits::Definition<Excavator::data::PublishInfo>::value();
+//   std::cout << "def: " << def << std::endl;
+// }
 
 void chatterCallbackLidar(const ros::MessageEvent<Excavator::data::PointCloud> &msg) {
-  const Excavator::data::PointCloud* pointCloudMsg = msg.getMessage().get();
   if(save_trigger){
+    // auto recv_time = std::chrono::high_resolution_clock::now().time_since_epoch();
+    // uint64_t recv_time_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(recv_time).count();
+    const Excavator::data::PointCloud* pointCloudMsg = msg.getMessage().get();
+    // // uint64_t recv_time_ns = ros::TIme::now().toNSec();
+    // uint64_t latency_ns = recv_time_ns - pointCloudMsg->send_time_ns();
+  
+    // ROS_INFO_STREAM("Message latency: " << latency_ns << " ns");
+    // ROS_DEBUG_STREAM("Send time: " << pointCloudMsg->send_time_ns() 
+    //                << " | Receive time: " << recv_time_ns);
     save_trigger = false;
     
     pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -72,7 +80,7 @@ int main(int argc, char **argv) {
   ros::NodeHandle n;
 
   // ros::Subscriber sub1 = n.subscribe("/Excavator_SY60C", 10, chatterCallback);
-  ros::Subscriber sub2 = n.subscribe("/livox_pointcloud", 10, chatterCallbackLidar);
+  ros::Subscriber sub2 = n.subscribe("/pb_cloud", 10, chatterCallbackLidar);
 
   ros::spin();
 

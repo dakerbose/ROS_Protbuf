@@ -28,7 +28,8 @@ message Point {
 }
 
 message PointCloud {
-    repeated Point points = 1;
+    int64 send_time_ns = 1; 
+    repeated Point points = 2;
 }
 
 // 图像数据描述

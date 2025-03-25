@@ -789,9 +789,10 @@ class PointCloud PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPointsFieldNumber = 1,
+    kPointsFieldNumber = 2,
+    kSendTimeNsFieldNumber = 1,
   };
-  // repeated .Excavator.data.Point points = 1;
+  // repeated .Excavator.data.Point points = 2;
   int points_size() const;
   private:
   int _internal_points_size() const;
@@ -809,6 +810,15 @@ class PointCloud PROTOBUF_FINAL :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Excavator::data::Point >&
       points() const;
 
+  // int64 send_time_ns = 1;
+  void clear_send_time_ns();
+  ::PROTOBUF_NAMESPACE_ID::int64 send_time_ns() const;
+  void set_send_time_ns(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_send_time_ns() const;
+  void _internal_set_send_time_ns(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Excavator.data.PointCloud)
  private:
   class _Internal;
@@ -817,6 +827,7 @@ class PointCloud PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Excavator::data::Point > points_;
+  ::PROTOBUF_NAMESPACE_ID::int64 send_time_ns_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_publish_5finfo_2eproto;
 };
@@ -1826,7 +1837,27 @@ inline void Point::set_intensity(float value) {
 
 // PointCloud
 
-// repeated .Excavator.data.Point points = 1;
+// int64 send_time_ns = 1;
+inline void PointCloud::clear_send_time_ns() {
+  send_time_ns_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 PointCloud::_internal_send_time_ns() const {
+  return send_time_ns_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 PointCloud::send_time_ns() const {
+  // @@protoc_insertion_point(field_get:Excavator.data.PointCloud.send_time_ns)
+  return _internal_send_time_ns();
+}
+inline void PointCloud::_internal_set_send_time_ns(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  send_time_ns_ = value;
+}
+inline void PointCloud::set_send_time_ns(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_send_time_ns(value);
+  // @@protoc_insertion_point(field_set:Excavator.data.PointCloud.send_time_ns)
+}
+
+// repeated .Excavator.data.Point points = 2;
 inline int PointCloud::_internal_points_size() const {
   return points_.size();
 }

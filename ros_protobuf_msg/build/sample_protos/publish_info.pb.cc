@@ -164,6 +164,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_publish_5finfo_2eproto::offset
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::Excavator::data::PointCloud, send_time_ns_),
   PROTOBUF_FIELD_OFFSET(::Excavator::data::PointCloud, points_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Excavator::data::ImageData, _internal_metadata_),
@@ -197,8 +198,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 10, -1, sizeof(::Excavator::data::SensorMetadata)},
   { 19, -1, sizeof(::Excavator::data::Point)},
   { 28, -1, sizeof(::Excavator::data::PointCloud)},
-  { 34, -1, sizeof(::Excavator::data::ImageData)},
-  { 44, -1, sizeof(::Excavator::data::Camera)},
+  { 35, -1, sizeof(::Excavator::data::ImageData)},
+  { 45, -1, sizeof(::Excavator::data::Camera)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -218,21 +219,22 @@ const char descriptor_table_protodef_publish_5finfo_2eproto[] PROTOBUF_SECTION_V
   "nsorMetadata\022\020\n\010frame_id\030\001 \001(\t\022\021\n\tsensor"
   "_id\030\003 \001(\t\022\023\n\013temperature\030\004 \001(\002\022\023\n\013status"
   "_code\030\005 \001(\r\";\n\005Point\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001"
-  "(\002\022\t\n\001z\030\003 \001(\002\022\021\n\tintensity\030\004 \001(\002\"3\n\nPoin"
-  "tCloud\022%\n\006points\030\001 \003(\0132\025.Excavator.data."
-  "Point\"\312\001\n\tImageData\022\020\n\010raw_data\030\001 \001(\014\022\r\n"
-  "\005width\030\002 \001(\r\022\016\n\006height\030\003 \001(\r\0227\n\010encoding"
-  "\030\004 \001(\0162%.Excavator.data.ImageData.PixelF"
-  "ormat\022\016\n\006stride\030\005 \001(\r\"C\n\013PixelFormat\022\t\n\005"
-  "MONO8\020\000\022\010\n\004RGB8\020\001\022\010\n\004BGR8\020\002\022\t\n\005RGBA8\020\003\022\n"
-  "\n\006YUV420\020\004\"\233\002\n\006Camera\0220\n\010metadata\030\001 \001(\0132"
-  "\036.Excavator.data.SensorMetadata\022\022\n\nframe"
-  "_rate\030\002 \001(\002\022\025\n\rexposure_time\030\003 \001(\002\022\014\n\004ga"
-  "in\030\004 \001(\002\022\024\n\014focal_length\030\005 \001(\002\022\020\n\010f_numb"
-  "er\030\006 \001(\002\022.\n\traw_image\030\007 \001(\0132\031.Excavator."
-  "data.ImageDataH\000\022\026\n\014jpeg_encoded\030\010 \001(\tH\000"
-  "\022\021\n\tintrinsic\030\t \003(\002\022\022\n\ndistortion\030\n \003(\002B"
-  "\017\n\rimage_payloadb\006proto3"
+  "(\002\022\t\n\001z\030\003 \001(\002\022\021\n\tintensity\030\004 \001(\002\"I\n\nPoin"
+  "tCloud\022\024\n\014send_time_ns\030\001 \001(\003\022%\n\006points\030\002"
+  " \003(\0132\025.Excavator.data.Point\"\312\001\n\tImageDat"
+  "a\022\020\n\010raw_data\030\001 \001(\014\022\r\n\005width\030\002 \001(\r\022\016\n\006he"
+  "ight\030\003 \001(\r\0227\n\010encoding\030\004 \001(\0162%.Excavator"
+  ".data.ImageData.PixelFormat\022\016\n\006stride\030\005 "
+  "\001(\r\"C\n\013PixelFormat\022\t\n\005MONO8\020\000\022\010\n\004RGB8\020\001\022"
+  "\010\n\004BGR8\020\002\022\t\n\005RGBA8\020\003\022\n\n\006YUV420\020\004\"\233\002\n\006Cam"
+  "era\0220\n\010metadata\030\001 \001(\0132\036.Excavator.data.S"
+  "ensorMetadata\022\022\n\nframe_rate\030\002 \001(\002\022\025\n\rexp"
+  "osure_time\030\003 \001(\002\022\014\n\004gain\030\004 \001(\002\022\024\n\014focal_"
+  "length\030\005 \001(\002\022\020\n\010f_number\030\006 \001(\002\022.\n\traw_im"
+  "age\030\007 \001(\0132\031.Excavator.data.ImageDataH\000\022\026"
+  "\n\014jpeg_encoded\030\010 \001(\tH\000\022\021\n\tintrinsic\030\t \003("
+  "\002\022\022\n\ndistortion\030\n \003(\002B\017\n\rimage_payloadb\006"
+  "proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_publish_5finfo_2eproto_deps[1] = {
 };
@@ -246,7 +248,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_pub
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_publish_5finfo_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_publish_5finfo_2eproto = {
-  false, false, descriptor_table_protodef_publish_5finfo_2eproto, "publish_info.proto", 864,
+  false, false, descriptor_table_protodef_publish_5finfo_2eproto, "publish_info.proto", 886,
   &descriptor_table_publish_5finfo_2eproto_once, descriptor_table_publish_5finfo_2eproto_sccs, descriptor_table_publish_5finfo_2eproto_deps, 6, 0,
   schemas, file_default_instances, TableStruct_publish_5finfo_2eproto::offsets,
   file_level_metadata_publish_5finfo_2eproto, 6, file_level_enum_descriptors_publish_5finfo_2eproto, file_level_service_descriptors_publish_5finfo_2eproto,
@@ -1211,11 +1213,13 @@ PointCloud::PointCloud(const PointCloud& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       points_(from.points_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  send_time_ns_ = from.send_time_ns_;
   // @@protoc_insertion_point(copy_constructor:Excavator.data.PointCloud)
 }
 
 void PointCloud::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_PointCloud_publish_5finfo_2eproto.base);
+  send_time_ns_ = PROTOBUF_LONGLONG(0);
 }
 
 PointCloud::~PointCloud() {
@@ -1250,6 +1254,7 @@ void PointCloud::Clear() {
   (void) cached_has_bits;
 
   points_.Clear();
+  send_time_ns_ = PROTOBUF_LONGLONG(0);
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1260,16 +1265,23 @@ const char* PointCloud::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // repeated .Excavator.data.Point points = 1;
+      // int64 send_time_ns = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          send_time_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // repeated .Excavator.data.Point points = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
             ptr = ctx->ParseMessage(_internal_add_points(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -1300,12 +1312,18 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .Excavator.data.Point points = 1;
+  // int64 send_time_ns = 1;
+  if (this->send_time_ns() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_send_time_ns(), target);
+  }
+
+  // repeated .Excavator.data.Point points = 2;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_points_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_points(i), target, stream);
+      InternalWriteMessage(2, this->_internal_points(i), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1324,11 +1342,18 @@ size_t PointCloud::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .Excavator.data.Point points = 1;
+  // repeated .Excavator.data.Point points = 2;
   total_size += 1UL * this->_internal_points_size();
   for (const auto& msg : this->points_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // int64 send_time_ns = 1;
+  if (this->send_time_ns() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+        this->_internal_send_time_ns());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1363,6 +1388,9 @@ void PointCloud::MergeFrom(const PointCloud& from) {
   (void) cached_has_bits;
 
   points_.MergeFrom(from.points_);
+  if (from.send_time_ns() != 0) {
+    _internal_set_send_time_ns(from._internal_send_time_ns());
+  }
 }
 
 void PointCloud::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -1387,6 +1415,7 @@ void PointCloud::InternalSwap(PointCloud* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   points_.InternalSwap(&other->points_);
+  swap(send_time_ns_, other->send_time_ns_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PointCloud::GetMetadata() const {
