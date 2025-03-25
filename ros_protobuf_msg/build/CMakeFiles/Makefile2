@@ -54,6 +54,8 @@ CMAKE_BINARY_DIR = /work/build
 
 # The main recursive "all" target.
 all: CMakeFiles/listener.dir/all
+all: CMakeFiles/ros_listener.dir/all
+all: CMakeFiles/ros_talker.dir/all
 all: CMakeFiles/pb_listener.dir/all
 all: CMakeFiles/pb_talker.dir/all
 all: CMakeFiles/talker.dir/all
@@ -74,6 +76,8 @@ preinstall: sample_protos/preinstall
 
 # The main recursive "clean" target.
 clean: CMakeFiles/listener.dir/clean
+clean: CMakeFiles/ros_listener.dir/clean
+clean: CMakeFiles/ros_talker.dir/clean
 clean: CMakeFiles/pb_listener.dir/clean
 clean: CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
 clean: CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/clean
@@ -252,6 +256,60 @@ listener: CMakeFiles/listener.dir/rule
 CMakeFiles/listener.dir/clean:
 	$(MAKE) -f CMakeFiles/listener.dir/build.make CMakeFiles/listener.dir/clean
 .PHONY : CMakeFiles/listener.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/ros_listener.dir
+
+# All Build rule for target.
+CMakeFiles/ros_listener.dir/all:
+	$(MAKE) -f CMakeFiles/ros_listener.dir/build.make CMakeFiles/ros_listener.dir/depend
+	$(MAKE) -f CMakeFiles/ros_listener.dir/build.make CMakeFiles/ros_listener.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/work/build/CMakeFiles --progress-num=18,19 "Built target ros_listener"
+.PHONY : CMakeFiles/ros_listener.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ros_listener.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /work/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ros_listener.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /work/build/CMakeFiles 0
+.PHONY : CMakeFiles/ros_listener.dir/rule
+
+# Convenience name for target.
+ros_listener: CMakeFiles/ros_listener.dir/rule
+
+.PHONY : ros_listener
+
+# clean rule for target.
+CMakeFiles/ros_listener.dir/clean:
+	$(MAKE) -f CMakeFiles/ros_listener.dir/build.make CMakeFiles/ros_listener.dir/clean
+.PHONY : CMakeFiles/ros_listener.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/ros_talker.dir
+
+# All Build rule for target.
+CMakeFiles/ros_talker.dir/all:
+	$(MAKE) -f CMakeFiles/ros_talker.dir/build.make CMakeFiles/ros_talker.dir/depend
+	$(MAKE) -f CMakeFiles/ros_talker.dir/build.make CMakeFiles/ros_talker.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/work/build/CMakeFiles --progress-num=20,21 "Built target ros_talker"
+.PHONY : CMakeFiles/ros_talker.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ros_talker.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /work/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ros_talker.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /work/build/CMakeFiles 0
+.PHONY : CMakeFiles/ros_talker.dir/rule
+
+# Convenience name for target.
+ros_talker: CMakeFiles/ros_talker.dir/rule
+
+.PHONY : ros_talker
+
+# clean rule for target.
+CMakeFiles/ros_talker.dir/clean:
+	$(MAKE) -f CMakeFiles/ros_talker.dir/build.make CMakeFiles/ros_talker.dir/clean
+.PHONY : CMakeFiles/ros_talker.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/pb_listener.dir
@@ -1076,7 +1134,7 @@ CMakeFiles/sensor_msgs_generate_messages_cpp.dir/clean:
 CMakeFiles/talker.dir/all:
 	$(MAKE) -f CMakeFiles/talker.dir/build.make CMakeFiles/talker.dir/depend
 	$(MAKE) -f CMakeFiles/talker.dir/build.make CMakeFiles/talker.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/work/build/CMakeFiles --progress-num=20,21 "Built target talker"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/work/build/CMakeFiles --progress-num=24,25 "Built target talker"
 .PHONY : CMakeFiles/talker.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1320,7 +1378,7 @@ message_serialization/CMakeFiles/copy_serialization_files.dir/clean:
 message_serialization/CMakeFiles/roscpp_proto_serialization.dir/all:
 	$(MAKE) -f message_serialization/CMakeFiles/roscpp_proto_serialization.dir/build.make message_serialization/CMakeFiles/roscpp_proto_serialization.dir/depend
 	$(MAKE) -f message_serialization/CMakeFiles/roscpp_proto_serialization.dir/build.make message_serialization/CMakeFiles/roscpp_proto_serialization.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/work/build/CMakeFiles --progress-num=18,19 "Built target roscpp_proto_serialization"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/work/build/CMakeFiles --progress-num=22,23 "Built target roscpp_proto_serialization"
 .PHONY : message_serialization/CMakeFiles/roscpp_proto_serialization.dir/all
 
 # Build rule for subdir invocation for target.

@@ -60,6 +60,16 @@ roscpp_proto_serialization
 )
 add_dependencies(pb_listener copy_traits_files copy_serialization_files)
 
+add_executable(ros_talker ros_talker.cpp)
+target_link_libraries(ros_talker 
+${roscpp_LIBRARIES} 
+${PCL_LIBRARIES})
+
+add_executable(ros_listener ros_listener.cpp)
+target_link_libraries(ros_listener 
+${roscpp_LIBRARIES} 
+${PCL_LIBRARIES})
+
 add_executable(talker talker.cpp)
 target_link_libraries(talker ${roscpp_LIBRARIES} ${std_msgs_LIBRARIES})
 

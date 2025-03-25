@@ -1,7 +1,4 @@
-#include <ros/protobuffer_traits.h>
-#include <ros/serialization_protobuffer.h>
 #include "ros/ros.h"
-#include "publish_info.pb.h"
 #include <sensor_msgs/PointCloud2.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -9,15 +6,17 @@
 #include <pcl_conversions/pcl_conversions.h>
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "pb_talker");
+  ros::init(argc, argv, "ros_talker");
   ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME,
                                  ros::console::levels::Debug);
   ros::NodeHandle n;
 
-  ros::Publisher pub =
-      n.advertise<Excavator::data::PublishInfo>("/Excavator_SY60C", 1000);
-  ros::Publisher cloud_pub = 
-      n.advertise<Excavator::data::PointCloud>("/ros_cloud", 1);
+  // ros::Publisher pub =
+  //     n.advertise<Excavator::data::PublishInfo>("/Excavator_SY60C", 1000);
+  // ros::Publisher cloud_pub = 
+  //     n.advertise<Excavator::data::PointCloud>("/ros_cloud", 1);
+  ros::Publisher pub = 
+      n.advertise<sensor_msgs::PointCloud2>("/ros_cloud", 1);
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
@@ -37,7 +36,12 @@ int main(int argc, char **argv) {
   while (ros::ok()) {
     // std::cerr << "DebugMsg: " << proto_msg_info.DebugString() << std::endl;
     cloud_msg.header.stamp = ros::Time::now();
-    cloud_pub.publish(cloud_msg);
+    static bool flag = true;
+    if(flag)
+    {
+      flag = false;
+      pub.publish(cloud_msg);
+    }
     ros::spinOnce();
 
     loop_rate.sleep();

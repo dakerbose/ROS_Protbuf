@@ -27,7 +27,6 @@ CMakeFiles/listener.dir/listener.cpp.o
  /opt/ros/noetic/include/ros/param.h
  /opt/ros/noetic/include/ros/parameter_adapter.h
  /opt/ros/noetic/include/ros/platform.h
- /opt/ros/noetic/include/ros/protobuffer_traits.h
  /opt/ros/noetic/include/ros/publisher.h
  /opt/ros/noetic/include/ros/rate.h
  /opt/ros/noetic/include/ros/ros.h

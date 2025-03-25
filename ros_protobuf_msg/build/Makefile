@@ -56,6 +56,27 @@ CMAKE_BINARY_DIR = /work/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
@@ -79,27 +100,6 @@ install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
 
 # Special rule for the target install/local
 install/local: preinstall
@@ -179,6 +179,32 @@ listener: cmake_check_build_system
 listener/fast:
 	$(MAKE) -f CMakeFiles/listener.dir/build.make CMakeFiles/listener.dir/build
 .PHONY : listener/fast
+
+#=============================================================================
+# Target rules for targets named ros_listener
+
+# Build rule for target.
+ros_listener: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ros_listener
+.PHONY : ros_listener
+
+# fast build rule for target.
+ros_listener/fast:
+	$(MAKE) -f CMakeFiles/ros_listener.dir/build.make CMakeFiles/ros_listener.dir/build
+.PHONY : ros_listener/fast
+
+#=============================================================================
+# Target rules for targets named ros_talker
+
+# Build rule for target.
+ros_talker: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ros_talker
+.PHONY : ros_talker
+
+# fast build rule for target.
+ros_talker/fast:
+	$(MAKE) -f CMakeFiles/ros_talker.dir/build.make CMakeFiles/ros_talker.dir/build
+.PHONY : ros_talker/fast
 
 #=============================================================================
 # Target rules for targets named pb_listener
@@ -794,6 +820,60 @@ pb_talker.cpp.s:
 	$(MAKE) -f CMakeFiles/pb_talker.dir/build.make CMakeFiles/pb_talker.dir/pb_talker.cpp.s
 .PHONY : pb_talker.cpp.s
 
+ros_listener.o: ros_listener.cpp.o
+
+.PHONY : ros_listener.o
+
+# target to build an object file
+ros_listener.cpp.o:
+	$(MAKE) -f CMakeFiles/ros_listener.dir/build.make CMakeFiles/ros_listener.dir/ros_listener.cpp.o
+.PHONY : ros_listener.cpp.o
+
+ros_listener.i: ros_listener.cpp.i
+
+.PHONY : ros_listener.i
+
+# target to preprocess a source file
+ros_listener.cpp.i:
+	$(MAKE) -f CMakeFiles/ros_listener.dir/build.make CMakeFiles/ros_listener.dir/ros_listener.cpp.i
+.PHONY : ros_listener.cpp.i
+
+ros_listener.s: ros_listener.cpp.s
+
+.PHONY : ros_listener.s
+
+# target to generate assembly for a file
+ros_listener.cpp.s:
+	$(MAKE) -f CMakeFiles/ros_listener.dir/build.make CMakeFiles/ros_listener.dir/ros_listener.cpp.s
+.PHONY : ros_listener.cpp.s
+
+ros_talker.o: ros_talker.cpp.o
+
+.PHONY : ros_talker.o
+
+# target to build an object file
+ros_talker.cpp.o:
+	$(MAKE) -f CMakeFiles/ros_talker.dir/build.make CMakeFiles/ros_talker.dir/ros_talker.cpp.o
+.PHONY : ros_talker.cpp.o
+
+ros_talker.i: ros_talker.cpp.i
+
+.PHONY : ros_talker.i
+
+# target to preprocess a source file
+ros_talker.cpp.i:
+	$(MAKE) -f CMakeFiles/ros_talker.dir/build.make CMakeFiles/ros_talker.dir/ros_talker.cpp.i
+.PHONY : ros_talker.cpp.i
+
+ros_talker.s: ros_talker.cpp.s
+
+.PHONY : ros_talker.s
+
+# target to generate assembly for a file
+ros_talker.cpp.s:
+	$(MAKE) -f CMakeFiles/ros_talker.dir/build.make CMakeFiles/ros_talker.dir/ros_talker.cpp.s
+.PHONY : ros_talker.cpp.s
+
 talker.o: talker.cpp.o
 
 .PHONY : talker.o
@@ -827,11 +907,13 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
-	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... edit_cache"
 	@echo "... listener"
+	@echo "... install/strip"
+	@echo "... ros_listener"
+	@echo "... install"
+	@echo "... ros_talker"
 	@echo "... pb_listener"
 	@echo "... install/local"
 	@echo "... rosgraph_msgs_generate_messages_eus"
@@ -885,6 +967,12 @@ help:
 	@echo "... pb_talker.o"
 	@echo "... pb_talker.i"
 	@echo "... pb_talker.s"
+	@echo "... ros_listener.o"
+	@echo "... ros_listener.i"
+	@echo "... ros_listener.s"
+	@echo "... ros_talker.o"
+	@echo "... ros_talker.i"
+	@echo "... ros_talker.s"
 	@echo "... talker.o"
 	@echo "... talker.i"
 	@echo "... talker.s"

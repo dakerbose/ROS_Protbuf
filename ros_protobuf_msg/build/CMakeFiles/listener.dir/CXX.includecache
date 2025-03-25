@@ -312,24 +312,6 @@ stdlib.h
 string
 -
 
-/opt/ros/noetic/include/ros/protobuffer_traits.h
-map
--
-string
--
-typeinfo
--
-google/protobuf/descriptor.h
--
-google/protobuf/message.h
--
-ros/time.h
--
-message_forward.h
-/opt/ros/noetic/include/ros/message_forward.h
-message_traits.h
-/opt/ros/noetic/include/ros/message_traits.h
-
 /opt/ros/noetic/include/ros/publisher.h
 ros/forwards.h
 /opt/ros/noetic/include/ros/ros/forwards.h
@@ -409,8 +391,6 @@ ros/message_traits.h
 /opt/ros/noetic/include/ros/ros/message_traits.h
 ros/builtin_message_traits.h
 /opt/ros/noetic/include/ros/ros/builtin_message_traits.h
-ros/protobuffer_traits.h
-/opt/ros/noetic/include/ros/ros/protobuffer_traits.h
 ros/exception.h
 /opt/ros/noetic/include/ros/ros/exception.h
 ros/datatypes.h
@@ -418,6 +398,8 @@ ros/datatypes.h
 vector
 -
 map
+-
+memory
 -
 boost/array.hpp
 -
