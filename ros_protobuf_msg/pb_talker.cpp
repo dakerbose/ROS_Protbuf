@@ -22,6 +22,14 @@ void confirmationCallback(const std_msgs::Bool::ConstPtr& msg) {
   }
 }
 
+std::atomic<bool> confirmed(false);
+
+void confirmationCallback(const std_msg::Bool::ConstPtr &msg){
+  if(msg->data){
+    confirmed = true;
+  }
+}
+
 int main(int argc, char **argv) {
   ros::init(argc, argv, "pb_talker");
   ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME,

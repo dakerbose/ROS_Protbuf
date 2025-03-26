@@ -6,8 +6,8 @@
 #include "publish_info.pb.h"
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-static bool save_trigger = true;
-
+static uint8_t save_trigger = 0;
+ros::Publisher confirm_pub;
 // void chatterCallback(
 //     const ros::MessageEvent<Excavator::data::PublishInfo> &msg) {
 //   std::cerr << "I heard: " << msg.getMessage()->DebugString() << std::endl;
@@ -17,7 +17,8 @@ static bool save_trigger = true;
 // }
 
 void chatterCallbackLidar(const ros::MessageEvent<Excavator::data::PointCloud> &msg) {
-  if(save_trigger){
+  
+  if(save_trigger++ < 10){ // 自己改就行
     // auto recv_time = std::chrono::high_resolution_clock::now().time_since_epoch();
     // uint64_t recv_time_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(recv_time).count();
     const Excavator::data::PointCloud* pointCloudMsg = msg.getMessage().get();
@@ -27,7 +28,7 @@ void chatterCallbackLidar(const ros::MessageEvent<Excavator::data::PointCloud> &
     // ROS_INFO_STREAM("Message latency: " << latency_ns << " ns");
     // ROS_DEBUG_STREAM("Send time: " << pointCloudMsg->send_time_ns() 
     //                << " | Receive time: " << recv_time_ns);
-    save_trigger = false;
+    // save_trigger = false;
     
     pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
     // 转换Protobuf到PCL格式
@@ -69,9 +70,12 @@ void chatterCallbackLidar(const ros::MessageEvent<Excavator::data::PointCloud> &
                   << point.y() << ", " 
                   << point.z() << ", "
                   << point.intensity() << ")" << std::endl;
-    }    
+    }   
+    std::msgs::Bool confirm_msg;
+    confirm_msg.data = true;
+    confirm_pub.publish(confirm_msg);
+    ROS_INFO("Sent confirmation.");
   }
-
 }
 
 int main(int argc, char **argv) {
@@ -81,7 +85,7 @@ int main(int argc, char **argv) {
 
   // ros::Subscriber sub1 = n.subscribe("/Excavator_SY60C", 10, chatterCallback);
   ros::Subscriber sub2 = n.subscribe("/pb_cloud", 10, chatterCallbackLidar);
-
+  confirm_pub = n.advertise<std_msgs::Bool>("/confirmation", 1);
   ros::spin();
 
   return 0;
