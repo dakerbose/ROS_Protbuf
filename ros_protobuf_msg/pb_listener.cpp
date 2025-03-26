@@ -6,6 +6,7 @@
 #include "publish_info.pb.h"
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include "std_msgs/Bool.h"
 static uint8_t save_trigger = 0;
 ros::Publisher confirm_pub;
 // void chatterCallback(
@@ -71,10 +72,16 @@ void chatterCallbackLidar(const ros::MessageEvent<Excavator::data::PointCloud> &
                   << point.z() << ", "
                   << point.intensity() << ")" << std::endl;
     }   
-    std::msgs::Bool confirm_msg;
+    std_msgs::Bool confirm_msg;
     confirm_msg.data = true;
     confirm_pub.publish(confirm_msg);
     ROS_INFO("Sent confirmation.");
+  }
+  else{
+    std_msgs::Bool confirm_msg;
+    confirm_msg.data = false;
+    confirm_pub.publish(confirm_msg);
+    ROS_INFO("Sent confirmation false.");
   }
 }
 

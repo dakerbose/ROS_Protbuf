@@ -1,8 +1,0 @@
-prefix=/usr/local
-
-Name: excavator_extension
-Description: Description of excavator_extension
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

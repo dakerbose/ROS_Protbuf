@@ -8,7 +8,7 @@
 #include <pcl/point_types.h>
 #include <pcl/io/pcd_io.h>
 #include <condition_variable>
-
+#include "std_msgs/Bool.h"
 std::mutex mtx;
 std::condition_variable cv;
 bool confirmed = false;
@@ -22,13 +22,7 @@ void confirmationCallback(const std_msgs::Bool::ConstPtr& msg) {
   }
 }
 
-std::atomic<bool> confirmed(false);
 
-void confirmationCallback(const std_msg::Bool::ConstPtr &msg){
-  if(msg->data){
-    confirmed = true;
-  }
-}
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, "pb_talker");
@@ -44,7 +38,7 @@ int main(int argc, char **argv) {
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-  if (pcl::io::loadPCDFile<pcl::PointXYZI>("/work/0.pcd", *cloud) == -1) {
+  if (pcl::io::loadPCDFile<pcl::PointXYZI>("/work/80MB.pcd", *cloud) == -1) {
     ROS_ERROR("Failed to load PCD file!");
     return -1;
   }
