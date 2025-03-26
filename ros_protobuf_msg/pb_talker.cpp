@@ -3,9 +3,24 @@
 #include "ros/ros.h"
 #include "publish_info.pb.h"
 #include <chrono>
+#include <mutex>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl/io/pcd_io.h>
+#include <condition_variable>
+
+std::mutex mtx;
+std::condition_variable cv;
+bool confirmed = false;
+
+void confirmationCallback(const std_msgs::Bool::ConstPtr& msg) {
+  if (msg->data) {
+      std::lock_guard<std::mutex> lock(mtx);
+      confirmed = true;
+      cv.notify_one();  // 通知等待线程
+      ROS_INFO("Received confirmation.");
+  }
+}
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, "pb_talker");
@@ -17,6 +32,7 @@ int main(int argc, char **argv) {
   //     n.advertise<Excavator::data::PublishInfo>("/Excavator_SY60C", 1000);
   ros::Publisher cloud_pub = 
       n.advertise<Excavator::data::PointCloud>("/pb_cloud", 1);
+  ros::Subscriber confirm_sub = n.subscribe("/confirmation", 1, confirmationCallback);
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
@@ -46,28 +62,35 @@ int main(int argc, char **argv) {
     proto_point->set_intensity(point.intensity);
   }
   int count = 0;
-  while (ros::ok()) {
-    // pub.publish(proto_msg_info);
-    // std::cerr << "DebugMsg: " << proto_msg_info.DebugString() << std::endl;
-    // static bool flag_time_pub = true;
-    // if(flag_time_pub)
-    // {
-      // flag_time_pub = false;
-      // auto send_time = std::chrono::high_resolution_clock::now().time_since_epoch();
-      // uint64_t send_time_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(send_time).count();
-      // proto_point_cloud.set_send_time_ns(send_time_ns);
-      // ROS_INFO_STREAM("Publishing at: " << proto_point_cloud.send_time_ns());
-    // }
-    static bool flag = true;
-    if(flag){
-      flag = false;
-      cloud_pub.publish(proto_point_cloud);
-    }
-    ros::spinOnce();
 
-    loop_rate.sleep();
-    ++count;
+  while (ros::ok() && cloud_pub.getNumSubscribers() < 1) {
+        ROS_INFO("Waiting for subscriber to connect...");
+        ros::spinOnce();
+        loop_rate.sleep();
   }
+
+    // 首次发布
+    cloud_pub.publish(proto_point_cloud);
+    ROS_INFO("Published first message.");
+
+    while (ros::ok()) {
+        // 使用条件变量等待确认
+        {
+            std::unique_lock<std::mutex> lock(mtx);
+            if (cv.wait_for(lock, std::chrono::seconds(1), [] { return confirmed; })) {
+                ROS_INFO("Confirmation received.");
+            } else {
+                ROS_WARN("Timeout waiting for confirmation!");
+            }
+            confirmed = false;  // 重置确认标志
+        }
+
+        // 发布下一条消息
+        cloud_pub.publish(proto_point_cloud);
+        ROS_INFO("Published next message.");
+        ros::spinOnce();  // 处理回调
+        loop_rate.sleep();
+    }
 
   return 0;
 }
