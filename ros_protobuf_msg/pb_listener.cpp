@@ -19,7 +19,7 @@ ros::Publisher confirm_pub;
 
 void chatterCallbackLidar(const ros::MessageEvent<Excavator::data::PointCloud> &msg) {
   
-  if(save_trigger++ < 10){ // 自己改就行
+  if(save_trigger++ < 1){ // 自己改就行
     // auto recv_time = std::chrono::high_resolution_clock::now().time_since_epoch();
     // uint64_t recv_time_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(recv_time).count();
     const Excavator::data::PointCloud* pointCloudMsg = msg.getMessage().get();

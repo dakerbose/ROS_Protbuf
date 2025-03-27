@@ -4,6 +4,22 @@
 #include <pcl/point_types.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl_conversions/pcl_conversions.h>
+#include <condition_variable>
+#include "std_msgs/Bool.h"
+#include <chrono>
+#include <mutex>
+std::mutex mtx;
+std::condition_variable cv;
+bool confirmed = false;
+
+void confirmationCallback(const std_msgs::Bool::ConstPtr& msg){
+  if(msg->data){
+    std::lock_guard<std::mutex> lock(mtx);
+    confirmed = true;
+    cv.notify_one();
+    ROS_INFO("Received confirmation.");
+  }
+}
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, "ros_talker");
@@ -17,10 +33,10 @@ int main(int argc, char **argv) {
   //     n.advertise<Excavator::data::PointCloud>("/ros_cloud", 1);
   ros::Publisher pub = 
       n.advertise<sensor_msgs::PointCloud2>("/ros_cloud", 1);
-
+  ros::Subscriber confirm_sub = n.subscribe("/confirmation", 1, confirmationCallback);
   pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-  if (pcl::io::loadPCDFile<pcl::PointXYZI>("/work/0.pcd", *cloud) == -1) {
+  if (pcl::io::loadPCDFile<pcl::PointXYZI>("/work/80MB.pcd", *cloud) == -1) {
     ROS_ERROR("Failed to load PCD file!");
     return -1;
   }
@@ -33,19 +49,29 @@ int main(int argc, char **argv) {
   ROS_INFO("Debug Excavtor sensor");
   // Fill the Protobuf PointCloud message with points from PCL cloud
   int count = 0;
-  while (ros::ok()) {
-    // std::cerr << "DebugMsg: " << proto_msg_info.DebugString() << std::endl;
-    cloud_msg.header.stamp = ros::Time::now();
-    static bool flag = true;
-    if(flag)
-    {
-      flag = false;
-      pub.publish(cloud_msg);
-    }
+  while (ros::ok() && pub.getNumSubscribers() < 1) {
+    ROS_INFO("Waiting for subscriber to connect...");
     ros::spinOnce();
-
     loop_rate.sleep();
-    ++count;
+  }
+  pub.publish(cloud_msg);
+  ROS_INFO("Published first message.");
+
+  while(ros::ok()){
+    {
+      std::unique_lock<std::mutex> lock(mtx);
+      if(cv.wait_for(lock, std::chrono::seconds(1), []{return confirmed;})){
+        ROS_INFO("Confirmation received.");
+      } else {
+        ROS_WARN("Timeout waiting for confirmation!");        
+      }
+      confirmed = false;
+    }
+
+    pub.publish(cloud_msg);
+    ROS_INFO("Published next message.");
+    ros::spinOnce();  // 处理回调
+    loop_rate.sleep();    
   }
 
   return 0;
