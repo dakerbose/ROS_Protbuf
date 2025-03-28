@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="excavator_extension" type="ros_listener" name="ros_listener" output="screen"/>
+  <node pkg="excavator_extension" type="ros_talker" name="ros_talker" output="screen"/>
+</launch>

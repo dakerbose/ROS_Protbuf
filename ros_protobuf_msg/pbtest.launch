@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="excavator_extension" type="pb_listener" name="pb_listener" output="screen"/>
+  <node pkg="excavator_extension" type="pb_talker" name="pn_talker" output="screen"/>
+</launch>
